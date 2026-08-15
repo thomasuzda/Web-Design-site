@@ -39,7 +39,9 @@
 </header>
 
 <section class="hero">
-  <canvas class="hero-lava" aria-hidden="true"></canvas>
+  <video class="hero-lava" autoplay muted loop playsinline aria-hidden="true">
+    <source src="video/hero-lava.mp4" type="video/mp4">
+  </video>
   <div class="container">
     <span class="eyebrow">Websites &amp; Software Built for Automotive</span>
     <h1>Digital Tools That Run as Reliably as Your Shop</h1>
@@ -204,6 +206,11 @@
 
 <script src="js/nav.js"></script>
 <script src="js/reveal.js"></script>
-<script src="js/lava.js"></script>
+<script>
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var heroVideo = document.querySelector(".hero-lava");
+    if (heroVideo) heroVideo.pause();
+  }
+</script>
 </body>
 </html>
