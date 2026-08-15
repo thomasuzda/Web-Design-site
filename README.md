@@ -1,4 +1,4 @@
-# Torque Digital (placeholder name)
+# Webcraft
 
 A static, no-build-step marketing site for a web/software agency serving
 automotive businesses first, and construction businesses second. Plain
@@ -20,18 +20,16 @@ npx live-server .
 Before this goes live, replace the placeholders below (they're marked
 throughout the HTML files as well):
 
-- [ ] **Business name** — currently `Torque Digital` everywhere (nav brand,
-      page titles, footer, meta descriptions). Find & replace across all
-      `.html` files.
+- [x] **Business name** — `Webcraft` everywhere (nav brand, page titles,
+      footer, meta descriptions).
 - [ ] **Logo/icon** — `images/logo.png` (full lockup, used as a faint hero
       watermark) and `images/logo-icon.png` (icon-only, used in the nav and
-      footer) are AI-generated placeholders in a winged-badge style. Swap
-      for your final logo files (keep the same filenames to avoid editing
-      every page, or update the `<img src="...">` references in each
-      `.html` file).
+      footer). Swap for your final logo files (keep the same filenames to
+      avoid editing every page, or update the `<img src="...">` references
+      in each `.html` file).
 - [ ] **Phone number** — `(555) 123-4567` / `tel:5551234567` appears in the
       header, footer, and contact page.
-- [ ] **Email** — `hello@torquedigital.example` appears in the footer and
+- [ ] **Email** — `hello@webcraft.example` appears in the footer and
       contact page.
 - [ ] **Service area** — placeholder text on `contact.html`.
 - [ ] **Founder/company story** — placeholder paragraph on `about.html`,
@@ -43,10 +41,9 @@ throughout the HTML files as well):
 - [ ] **Portfolio** — `work.html` and `index.html` link out to the
       `u-r-nursery` project as a real example. As you complete client work,
       add more project cards using the same `.card` pattern.
-- [ ] **Colors** — the automotive theme (navy + royal blue + brushed silver,
-      matching the logo) lives entirely in CSS custom properties at the top
-      of `css/style.css` (`:root { ... }`). Change those variables to
-      re-theme the whole site at once.
+- [ ] **Colors** — the warm copper-on-charcoal theme lives entirely in CSS
+      custom properties at the top of `css/style.css` (`:root { ... }`).
+      Change those variables to re-theme the whole site at once.
 
 ## Deploying, and making the contact form actually work
 
@@ -78,7 +75,7 @@ protection — leave it in place either way.
 ## Structure
 
 ```
-torque-digital/
+webcraft/
   index.html       Homepage
   services.html     Services + pricing
   work.html         Approach + live example project
