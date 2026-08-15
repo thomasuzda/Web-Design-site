@@ -1,0 +1,179 @@
+<!-- Placeholder business name: "Torque Digital". Find & replace across all
+     pages before launch — see README.md for a full personalization checklist.
+     Contact form uses Netlify Forms attributes (data-netlify, honeypot).
+     It only actually delivers submissions once deployed on Netlify — see
+     README.md for the Formspree fallback if hosting elsewhere. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Torque Digital</title>
+<meta name="description" content="Tell Torque Digital about your automotive or construction project — get a straightforward quote back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/logo-icon.png" type="image/png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo-icon.png" alt="Torque Digital logo">
+      <span class="brand-text">Torque<span> Digital</span></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Our Work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" aria-current="page">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:5551234567">(555) 123-4567</a>
+      <a class="btn btn-primary" href="contact.html">Get a Quote</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero small">
+  <img class="hero-decor" src="images/logo-icon.png" alt="">
+  <div class="container">
+    <span class="eyebrow">Let's Talk</span>
+    <h1>Tell Us About Your Project</h1>
+    <p class="lead">Whether it's a new website, custom software, or you're not quite sure yet — tell us what's going on and we'll follow up with a straightforward next step.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container contact-grid">
+    <div class="contact-info-card">
+      <h3>Phone</h3>
+      <div class="row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href="tel:5551234567">(555) 123-4567</a>
+      </div>
+      <h3>Email</h3>
+      <div class="row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:hello@torquedigital.example">hello@torquedigital.example</a>
+      </div>
+      <h3>Service Area</h3>
+      <div class="row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p style="margin: 0;">[Add your service area / city here]</p>
+      </div>
+      <p style="margin-top: 1.6rem;">We typically reply within 1 business day.</p>
+    </div>
+
+    <div class="form-card">
+      <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact">
+        <div class="hp-field">
+          <label for="bot-field">Leave this field blank</label>
+          <input type="text" id="bot-field" name="bot-field" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" autocomplete="name">
+          <span class="form-error">Name is required.</span>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email">
+          <span class="form-error">Enter a valid email address.</span>
+        </div>
+
+        <div class="form-row">
+          <label for="phone">Phone <span style="font-weight: 400; color: var(--ink-light);">(optional)</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel">
+        </div>
+
+        <div class="form-row">
+          <label for="business">Business Name <span style="font-weight: 400; color: var(--ink-light);">(optional)</span></label>
+          <input type="text" id="business" name="business" autocomplete="organization">
+        </div>
+
+        <div class="form-row">
+          <label for="industry">Industry</label>
+          <select id="industry" name="industry">
+            <option value="">Select one…</option>
+            <option value="Automotive">Automotive</option>
+            <option value="Construction">Construction</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="form-error">Please select an industry.</span>
+        </div>
+
+        <div class="form-row">
+          <label for="project-type">Project Type <span style="font-weight: 400; color: var(--ink-light);">(optional)</span></label>
+          <select id="project-type" name="project-type">
+            <option value="">Select one…</option>
+            <option value="New Website">New Website</option>
+            <option value="Custom Software">Custom Software</option>
+            <option value="SEO & Local Search">SEO &amp; Local Search</option>
+            <option value="Hosting & Maintenance">Hosting &amp; Maintenance</option>
+            <option value="Not Sure Yet">Not Sure Yet</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Project Details</label>
+          <textarea id="message" name="message" placeholder="Tell us a bit about your business and what you're looking for."></textarea>
+          <span class="form-error">Please add a few details about your project.</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+        <p class="form-note">By submitting, you agree to be contacted about your inquiry. We don't share your information.</p>
+      </form>
+
+      <div id="form-success" class="form-success">
+        <h3>Message Sent</h3>
+        <p>Thanks for reaching out — we'll get back to you within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="images/logo-icon.png" alt="Torque Digital logo">
+          <span>Torque Digital</span>
+        </div>
+        <p>Websites and custom software for automotive businesses, with select construction projects too.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="work.html">Our Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in Touch</h4>
+        <ul>
+          <li><a href="tel:5551234567">(555) 123-4567</a></li>
+          <li><a href="mailto:hello@torquedigital.example">hello@torquedigital.example</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Torque Digital. All rights reserved. Placeholder business name — update before launch.</div>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/form.js"></script>
+</body>
+</html>
