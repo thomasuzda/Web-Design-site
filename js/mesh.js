@@ -1,91 +1,99 @@
-/* Animated perspective wave-mesh for the hero background.
-   A grid of points is displaced by layered sine waves and projected
-   with a simple perspective transform, then drawn as a wireframe.
-   Because every displacement is a sum of periodic functions of time,
-   the motion is continuous and never repeats visibly — no loop seam,
-   and nothing is pre-rendered, so it can't read as "a video". */
+/* Animated full-bleed warping grid for the site background.
+   A regular grid is laid over the whole viewport (extended a couple of
+   cells past every edge so it never reveals a gap), then every vertex is
+   pushed around by layered sine/cosine fields. The layers run at
+   unrelated speeds, so crests drift across each other and the sheet
+   reads as folding over itself rather than pulsing in place.
+   Nothing is pre-rendered and no cycle repeats visibly, so there's no
+   loop seam to hide. */
 document.addEventListener("DOMContentLoaded", function () {
   var canvas = document.querySelector(".site-mesh");
   if (!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext("2d");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var COLS = 46;
-  var ROWS = 30;
-  var W = 0, H = 0, DPR = 1, raf = null, start = null;
+  var CELL = 62;      // target spacing between grid lines, in CSS px
+  var OVER = 3;       // extra cells drawn past each edge
+  var AMP = 46;       // how far a vertex can travel from its rest spot
+
+  var W = 0, H = 0, DPR = 1, COLS = 0, ROWS = 0, raf = null, start = null;
 
   function resize() {
-    // The canvas is position:fixed inset:0, so its own box is the viewport.
     var rect = canvas.getBoundingClientRect();
     DPR = Math.min(window.devicePixelRatio || 1, 2);
-    // Fall back to the viewport if the element measures 0 — that happens
-    // when layout isn't settled yet (e.g. a background/hidden tab). CSS
-    // already sizes the canvas to the viewport, so we only set the
-    // backing store here; writing width/height back as inline styles
-    // would permanently lock it to a stale 0 in that case.
+    // Fall back to the viewport if the element measures 0 — happens when
+    // layout isn't settled yet (e.g. a backgrounded tab). CSS already
+    // sizes the canvas, so only the backing store is set here.
     W = rect.width || window.innerWidth;
     H = rect.height || window.innerHeight;
     canvas.width = Math.round(W * DPR);
     canvas.height = Math.round(H * DPR);
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    COLS = Math.ceil(W / CELL) + OVER * 2;
+    ROWS = Math.ceil(H / CELL) + OVER * 2;
   }
 
-  // Layered waves at incommensurate frequencies, so crests drift past
-  // each other instead of pulsing in lockstep.
-  function height(x, z, t) {
-    return Math.sin(x * 0.62 + t * 0.75) * 0.42
-         + Math.sin(x * 0.27 - z * 0.48 + t * 0.53) * 0.72
-         + Math.cos(z * 0.55 + t * 0.39) * 0.46
-         + Math.sin((x + z) * 0.19 + t * 0.28) * 0.34;
-  }
+  // Returns the displaced position of one vertex plus an "energy" value
+  // used to brighten the crests of each fold.
+  function vertex(bx, by, t) {
+    var u = bx / Math.max(W, 1);
+    var v = by / Math.max(H, 1);
 
-  function project(x, z, y) {
-    var depth = z + 2.35;
-    var p = 2.15 / depth;
-    return {
-      x: W * 0.5 + x * p * W * 0.40,
-      y: H * 0.60 - (y - 0.6) * p * H * 0.34,
-      p: p
-    };
+    var a = Math.sin(u * 3.0 + t * 0.40) * Math.cos(v * 2.2 - t * 0.29);
+    var b = Math.sin((u + v) * 2.7 - t * 0.23);
+    var c = Math.cos(v * 3.9 + t * 0.17);
+    var d = Math.sin(u * 1.6 - v * 2.9 + t * 0.13);
+
+    var dy = (a * 0.62 + b * 0.30 + c * 0.34) * AMP;
+    var dx = (Math.sin(v * 3.2 + t * 0.25) * 0.55 + b * 0.28 + d * 0.22) * AMP;
+
+    return { x: bx + dx, y: by + dy, e: a * 0.62 + b * 0.30 };
   }
 
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
 
+    var stepX = W / (COLS - OVER * 2);
+    var stepY = H / (ROWS - OVER * 2);
+    var originX = -stepX * OVER;
+    var originY = -stepY * OVER;
+
     var pts = [];
     var i, j;
-    for (j = 0; j < ROWS; j++) {
+    for (j = 0; j <= ROWS; j++) {
       var row = [];
-      var z = j * 0.44;
-      for (i = 0; i < COLS; i++) {
-        var x = (i / (COLS - 1) - 0.5) * 9.2;
-        row.push(project(x, z, height(x, z, t)));
+      for (i = 0; i <= COLS; i++) {
+        row.push(vertex(originX + i * stepX, originY + j * stepY, t));
       }
       pts.push(row);
     }
 
     ctx.lineWidth = 1;
 
-    // Rows first (the dominant "contour" reading), then columns.
-    for (j = 0; j < ROWS; j++) {
-      var fade = 1 - j / (ROWS - 1);
-      var alpha = 0.10 + Math.pow(fade, 1.5) * 0.60;
-      ctx.strokeStyle = "rgba(255,255,255," + alpha.toFixed(3) + ")";
+    // Rows, then columns — together they read as one continuous sheet.
+    for (j = 0; j <= ROWS; j++) {
       ctx.beginPath();
-      for (i = 0; i < COLS; i++) {
-        var pt = pts[j][i];
-        if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+      var rowE = 0;
+      for (i = 0; i <= COLS; i++) {
+        var p = pts[j][i];
+        rowE += p.e;
+        if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
       }
+      var ra = 0.075 + Math.abs(rowE / (COLS + 1)) * 0.30;
+      ctx.strokeStyle = "rgba(255,255,255," + ra.toFixed(3) + ")";
       ctx.stroke();
     }
 
-    for (i = 0; i < COLS; i += 1) {
+    for (i = 0; i <= COLS; i++) {
       ctx.beginPath();
-      for (j = 0; j < ROWS; j++) {
+      var colE = 0;
+      for (j = 0; j <= ROWS; j++) {
         var q = pts[j][i];
+        colE += q.e;
         if (j === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
       }
-      ctx.strokeStyle = "rgba(255,255,255,0.16)";
+      var ca = 0.06 + Math.abs(colE / (ROWS + 1)) * 0.24;
+      ctx.strokeStyle = "rgba(255,255,255," + ca.toFixed(3) + ")";
       ctx.stroke();
     }
   }
