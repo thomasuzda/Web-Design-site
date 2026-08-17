@@ -13,6 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
   var COLS = 46;
   var ROWS = 30;
   var W = 0, H = 0, DPR = 1, raf = null, start = null;
+  // Portrait screens need their own framing: the landscape numbers put
+  // the wave straight through the hero copy and at a density that reads
+  // as noise on a small screen. Desktop/landscape math is unchanged.
+  var PORTRAIT = false;
 
   function resize() {
     // The canvas is position:fixed inset:0, so its own box is the viewport.
@@ -28,6 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.width = Math.round(W * DPR);
     canvas.height = Math.round(H * DPR);
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+    PORTRAIT = H > W;
+    // Fewer lines on a phone: same shape, less visual noise, less work
+    // per frame on a weaker GPU.
+    COLS = PORTRAIT ? 30 : 46;
+    ROWS = PORTRAIT ? 22 : 30;
   }
 
   // Layered waves at incommensurate frequencies, so crests drift past
@@ -42,6 +52,16 @@ document.addEventListener("DOMContentLoaded", function () {
   function project(x, z, y) {
     var depth = z + 2.35;
     var p = 2.15 / depth;
+    if (PORTRAIT) {
+      // Spread wider so the wave still reaches both edges of a narrow
+      // screen, sit it lower so it clears the headline and body copy,
+      // and flatten it so a tall viewport doesn't stretch the crests.
+      return {
+        x: W * 0.5 + x * p * W * 0.82,
+        y: H * 0.74 - (y - 0.6) * p * H * 0.16,
+        p: p
+      };
+    }
     return {
       x: W * 0.5 + x * p * W * 0.40,
       y: H * 0.60 - (y - 0.6) * p * H * 0.34,

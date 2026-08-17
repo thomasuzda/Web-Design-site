@@ -319,6 +319,18 @@ img { max-width: 100%; display: block; }
   .nav-dropdown { right: 1.5rem; left: 1.5rem; min-width: 0; }
 }
 
+/* On narrow phones the brand + CTA + Menu can't share one row without
+   the CTA wrapping and colliding with the logo. Drop the nav CTA there —
+   the hero already leads with "Get a Free Quote", and Contact is in the
+   dropdown — and tighten the remaining pieces. */
+@media (max-width: 560px) {
+  .nav-cta .btn-primary { display: none; }
+  .nav-wrap { padding: 0.6rem 1rem; }
+  .brand svg, .brand img { width: 26px; height: 26px; }
+  .brand-text { font-size: 1.05rem; }
+  .nav-dropdown { right: 1rem; left: 1rem; }
+}
+
 /* ---------- Hero ---------- */
 
 /* Shared dark canvas behind both the nav and the hero, so the nav reads
