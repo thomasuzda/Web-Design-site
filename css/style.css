@@ -300,38 +300,6 @@ img { max-width: 100%; display: block; }
 }
 .hero.small .container { padding-top: 3.2rem; padding-bottom: 3.2rem; }
 
-/* Calm neural/lightning-web background image, behind the text. A slow
-   scale + brightness "breathing" loop gives it a living, never-stops
-   feel without any video file — the animation itself is the loop, so
-   there's no seam to hide. A left-to-right dark scrim on top keeps the
-   copy legible without flattening the effect on the right side. */
-.hero-neural {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: url("../images/hero-neural.jpg");
-  background-size: cover;
-  background-position: center;
-  pointer-events: none;
-  animation: neural-breathe 10s ease-in-out infinite;
-  transform-origin: center;
-}
-@keyframes neural-breathe {
-  0%, 100% { transform: scale(1); filter: brightness(0.9) saturate(0.9); }
-  50% { transform: scale(1.035); filter: brightness(1.12) saturate(1.08); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-neural { animation: none; filter: brightness(1) saturate(1); }
-}
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(90deg, rgba(13,10,8,0.72) 0%, rgba(13,10,8,0.4) 42%, rgba(13,10,8,0.08) 72%);
-  pointer-events: none;
-}
-
 .hero h1 {
   color: var(--white);
   font-size: clamp(2.1rem, 5vw, 3.4rem);
