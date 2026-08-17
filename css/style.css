@@ -131,18 +131,22 @@ img { max-width: 100%; display: block; }
 .btn-dark:hover { background: var(--black); }
 
 /* ---------- Header / Nav ---------- */
+/* Transparent by default so the flowing hero background reads as one
+   continuous surface behind nav + hero, not a separate bar sitting on
+   top of it. Once scrolled past the hero, it picks up a solid backing
+   so it stays readable over whatever content follows. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+.site-header.scrolled {
   background: rgba(10, 10, 10, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-.site-header.scrolled {
-  background: rgba(10, 10, 10, 0.97);
   border-bottom-color: rgba(255,255,255,0.1);
 }
 
@@ -294,8 +298,72 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- Hero ---------- */
-.hero {
+
+/* Shared dark canvas behind both the nav and the hero, so the nav reads
+   as part of the same surface instead of a bar sitting on top of it.
+   Two slowly counter-rotating soft conic-gradient glows plus a drifting
+   grid mesh — every animation here loops by construction (a full 360°
+   spin, or a background-position shift by exactly one tile) so there is
+   never a seam to hide, unlike a video loop. */
+.hero-zone {
+  position: relative;
   background: var(--charcoal);
+  overflow: hidden;
+}
+.hero-flow {
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-flow::before,
+.hero-flow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg at 50% 45%,
+    rgba(255,255,255,0) 0deg,
+    rgba(255,255,255,0.22) 40deg,
+    rgba(255,255,255,0) 100deg,
+    rgba(255,255,255,0.14) 190deg,
+    rgba(255,255,255,0) 250deg,
+    rgba(255,255,255,0.26) 320deg,
+    rgba(255,255,255,0) 360deg);
+  filter: blur(55px);
+  animation: hero-spin 46s linear infinite;
+}
+.hero-flow::after {
+  filter: blur(85px);
+  opacity: 0.65;
+  animation-name: hero-spin-reverse;
+  animation-duration: 72s;
+}
+@keyframes hero-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes hero-spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(circle at 62% 38%, black, transparent 82%);
+  mask-image: radial-gradient(circle at 62% 38%, black, transparent 82%);
+  animation: hero-grid-drift 22s linear infinite;
+  pointer-events: none;
+}
+@keyframes hero-grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: -44px -44px, -44px -44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-flow::before, .hero-flow::after, .hero-grid { animation: none; }
+}
+
+.hero {
+  background: transparent;
   color: var(--white);
   position: relative;
   overflow: hidden;
