@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Rows first (the dominant "contour" reading), then columns.
     for (j = 0; j < ROWS; j++) {
       var fade = 1 - j / (ROWS - 1);
-      var alpha = 0.05 + Math.pow(fade, 1.7) * 0.42;
+      var alpha = 0.10 + Math.pow(fade, 1.5) * 0.60;
       ctx.strokeStyle = "rgba(255,255,255," + alpha.toFixed(3) + ")";
       ctx.beginPath();
       for (i = 0; i < COLS; i++) {
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var q = pts[j][i];
         if (j === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
       }
-      ctx.strokeStyle = "rgba(255,255,255,0.10)";
+      ctx.strokeStyle = "rgba(255,255,255,0.16)";
       ctx.stroke();
     }
   }
