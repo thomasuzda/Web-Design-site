@@ -62,9 +62,10 @@ body {
   line-height: 1.6;
 }
 
-/* Site-wide fixed grid + ambient glow sitting behind every section.
-   Fixed (not scrolling) so the whole page reads as one continuous
-   surface rather than a stack of separately-backgrounded bands. */
+/* Fixed dark canvas + ambient glow sitting behind every section, so the
+   whole page reads as one continuous surface rather than a stack of
+   separately-backgrounded bands. The moving wave-mesh (.site-mesh) is
+   layered on top of this. */
 body::before {
   content: "";
   position: fixed;
@@ -74,16 +75,19 @@ body::before {
     radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255,255,255,0.07), transparent 70%),
     var(--black);
 }
-body::after {
-  content: "";
+
+/* Animated perspective wave-mesh (drawn by js/mesh.js), fixed behind the
+   entire site — the only "grid" on the page now, and it's always moving. */
+.site-mesh {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
-  background-size: 46px 46px;
+  display: block;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, black 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, black 35%, transparent 100%);
 }
 
 h1, h2, h3, h4 {
@@ -358,17 +362,6 @@ img { max-width: 100%; display: block; }
 
 /* Animated perspective wave-mesh (drawn by js/mesh.js). Sits above the
    ambient glow but below the hero copy. */
-.hero-mesh {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
-}
 @media (prefers-reduced-motion: reduce) {
   .hero-flow::before, .hero-flow::after { animation: none; }
 }
@@ -781,7 +774,9 @@ section { padding: 4rem 0; }
   border-radius: 8px;
   font-family: "Inter", sans-serif;
   font-size: 1rem;
-  background: rgba(255,255,255,0.06);
+  /* Opaque rather than translucent, so the moving mesh behind the page
+     doesn't drift through the field while you're typing in it. */
+  background: #1c1c1c;
   color: var(--white);
   transition: border-color 0.2s ease, background 0.2s ease;
 }
@@ -793,7 +788,7 @@ section { padding: 4rem 0; }
 .form-row textarea:focus {
   outline: 2px solid rgba(255,255,255,0.7);
   outline-offset: 1px;
-  background: rgba(255,255,255,0.1);
+  background: #242424;
 }
 .form-row textarea { resize: vertical; min-height: 110px; }
 .form-note {

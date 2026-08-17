@@ -5,7 +5,7 @@
    the motion is continuous and never repeats visibly — no loop seam,
    and nothing is pre-rendered, so it can't read as "a video". */
 document.addEventListener("DOMContentLoaded", function () {
-  var canvas = document.querySelector(".hero-mesh");
+  var canvas = document.querySelector(".site-mesh");
   if (!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext("2d");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -15,14 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
   var W = 0, H = 0, DPR = 1, raf = null, start = null;
 
   function resize() {
-    var rect = canvas.parentElement.getBoundingClientRect();
+    // The canvas is position:fixed inset:0, so its own box is the viewport.
+    var rect = canvas.getBoundingClientRect();
     DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = rect.width;
-    H = rect.height;
+    // Fall back to the viewport if the element measures 0 — that happens
+    // when layout isn't settled yet (e.g. a background/hidden tab). CSS
+    // already sizes the canvas to the viewport, so we only set the
+    // backing store here; writing width/height back as inline styles
+    // would permanently lock it to a stale 0 in that case.
+    W = rect.width || window.innerWidth;
+    H = rect.height || window.innerHeight;
     canvas.width = Math.round(W * DPR);
     canvas.height = Math.round(H * DPR);
-    canvas.style.width = W + "px";
-    canvas.style.height = H + "px";
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
 
