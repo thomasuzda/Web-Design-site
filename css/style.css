@@ -1,8 +1,10 @@
 /* ===== Webcraft — shared styles =====
-   Palette: strict black/white/gray, no color accent — bold typography
-   and contrast do the work instead. --amber/--amber-dark are legacy
-   variable names (kept so class names below didn't all need renaming)
-   but now resolve to black, not any shade of amber. */
+   Palette: black / white / gray, with a restrained cool-blue accent.
+   The blue is deliberately used only on small details — kicker dots,
+   link arrows, card top-edges, focus rings — so the site still reads as
+   monochrome rather than "another blue tech site".
+   --amber/--amber-dark are legacy variable names (kept so class names
+   below didn't all need renaming) but now resolve to black. */
 
 :root {
   --charcoal: #141414;
@@ -11,6 +13,11 @@
   --steel-light: #bdbdbd;
   --amber: #000000;
   --amber-dark: #000000;
+  /* Cool accent blue + softer/dimmer variants for glows and washes. */
+  --accent: #5c9dff;
+  --accent-soft: #a3c7ff;
+  --accent-wash: rgba(92, 157, 255, 0.14);
+  --accent-line: rgba(92, 157, 255, 0.45);
   --glow: rgba(255, 255, 255, 0.16);
   --cream: #f2f2f2;
   --black: #0a0a0a;
@@ -179,7 +186,9 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
-.brand-text span { color: var(--steel-light); }
+/* "Web" stays white, "craft" carries the accent — the wordmark is the
+   logo now, so this is where the brand colour lives. */
+.brand-text span { color: var(--accent); }
 
 .nav-cta {
   display: flex;
@@ -285,7 +294,7 @@ img { max-width: 100%; display: block; }
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--white);
+  background: var(--accent);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -453,7 +462,7 @@ section { padding: 4rem 0; }
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.8rem;
-  color: #bdbdbd;
+  color: var(--accent-soft);
   font: 600 0.72rem/1 "Oswald", sans-serif;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -462,8 +471,8 @@ section { padding: 4rem 0; }
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--white);
-  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 255, 255, 0.7);
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(92, 157, 255, 0.16), 0 0 18px rgba(92, 157, 255, 0.85);
   animation: capability-pulse 2.4s ease-in-out infinite;
 }
 .capabilities-section .section-head { margin-bottom: 3rem; }
@@ -489,7 +498,7 @@ section { padding: 4rem 0; }
   height: 1px;
   top: 0;
   left: -30%;
-  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
   transform: translateX(-55%);
   transition: transform 700ms cubic-bezier(.16, 1, .3, 1);
 }
@@ -509,14 +518,14 @@ section { padding: 4rem 0; }
 .capability-card:hover::before { transform: translateX(55%); }
 .capability-card:hover::after { opacity: 1; transform: scale(1.35); }
 .capability-number { position: absolute; top: 1.35rem; right: 1.35rem; color: rgba(255, 255, 255, 0.35); font: 600 0.74rem/1 "Oswald", sans-serif; letter-spacing: 0.11em; }
-.capability-icon { display: grid; width: 48px; height: 48px; margin-bottom: 1.65rem; place-items: center; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #d6d6d6; background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)); transition: transform 420ms cubic-bezier(.16, 1, .3, 1), background 420ms ease, color 420ms ease; }
+.capability-icon { display: grid; width: 48px; height: 48px; margin-bottom: 1.65rem; place-items: center; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: var(--accent-soft); background: linear-gradient(145deg, rgba(92, 157, 255, 0.20), rgba(92, 157, 255, 0.06)); transition: transform 420ms cubic-bezier(.16, 1, .3, 1), background 420ms ease, color 420ms ease; }
 .capability-icon svg { width: 25px; height: 25px; }
 .capability-card:hover .capability-icon { transform: rotate(-6deg) scale(1.08); color: var(--white); background: rgba(255, 255, 255, 0.22); }
 .capability-card h3 { max-width: 12ch; margin-bottom: 0.6rem; color: var(--white); font-size: 1.19rem; }
 .capability-card p { color: rgba(255, 255, 255, 0.72); font: 400 0.93rem/1.58 "Inter", sans-serif; }
-.capability-card .card-link { margin-top: auto; padding-top: 1.2rem; color: #cfcfcf; }
+.capability-card .card-link { margin-top: auto; padding-top: 1.2rem; color: var(--accent-soft); }
 .capability-card .card-link:hover { color: var(--white); }
-@keyframes capability-pulse { 50% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.03), 0 0 25px rgba(255, 255, 255, 0.7); } }
+@keyframes capability-pulse { 50% { box-shadow: 0 0 0 8px rgba(92, 157, 255, 0.05), 0 0 25px rgba(92, 157, 255, 0.85); } }
 
 /* ---------- Cards / Grids ---------- */
 .grid {
@@ -532,7 +541,7 @@ section { padding: 4rem 0; }
   border-radius: var(--radius);
   padding: 1.8rem;
   border: 1px solid rgba(255,255,255,0.11);
-  border-top: 3px solid rgba(255,255,255,0.5);
+  border-top: 3px solid var(--accent-line);
   transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 .card:hover {
@@ -553,7 +562,7 @@ section { padding: 4rem 0; }
   margin-top: 0.8rem;
   font-weight: 700;
   text-decoration: none;
-  color: var(--white);
+  color: var(--accent-soft);
   font-size: 0.95rem;
   font-family: "Oswald", sans-serif;
   text-transform: uppercase;
@@ -571,7 +580,7 @@ section { padding: 4rem 0; }
   letter-spacing: 0.5px;
   font-family: "Oswald", sans-serif;
 }
-.tag-amber { background: rgba(255,255,255,0.13); color: var(--white); }
+.tag-amber { background: var(--accent-wash); color: var(--accent-soft); }
 .tag-steel { background: rgba(255,255,255,0.07); color: var(--steel-light); }
 
 /* ---------- Placeholder photo blocks ---------- */
@@ -598,13 +607,36 @@ section { padding: 4rem 0; }
   font-family: "Inter", sans-serif;
 }
 
-/* ---------- 3D car (three.js, js/car.js) ---------- */
+/* ---------- 3D car (three.js, js/car.js) ----------
+   Copy on the left, the model in a bordered "viewer" panel on the right,
+   so the render reads as a deliberate exhibit rather than a canvas
+   floating loose in the page. Stacks on narrow screens. */
 .car-section { background: transparent; }
+.car-layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 3rem;
+  align-items: center;
+}
+.car-copy .section-kicker { margin-bottom: 0.9rem; }
+.car-copy h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); }
+.car-copy p { color: var(--ink-light); }
+
+.car-viewer {
+  margin: 0;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.11);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 62%, var(--accent-wash), transparent 70%),
+    rgba(255,255,255,0.035);
+  padding: 0.6rem 0.6rem 0;
+  overflow: hidden;
+}
 .car-stage {
   position: relative;
   width: 100%;
-  height: clamp(300px, 40vw, 480px);
-  margin-top: 1rem;
+  height: clamp(260px, 30vw, 380px);
 }
 /* The canvas is sized in JS from this box, so it needs real dimensions
    here rather than intrinsic canvas defaults. */
@@ -616,8 +648,33 @@ section { padding: 4rem 0; }
   transition: opacity 0.6s ease;
 }
 .car-stage.is-ready .car-canvas { opacity: 1; }
-/* If the model can't load, collapse the stage instead of leaving a gap. */
+/* If the model can't load, collapse the whole viewer — hiding only the
+   stage would leave a bordered box with nothing but the caption in it. */
+.car-viewer:has(.car-stage.is-failed) { display: none; }
 .car-stage.is-failed { display: none; }
+
+.car-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.5rem 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: var(--ink-light);
+  font: 500 0.78rem/1 "Inter", sans-serif;
+  letter-spacing: 0.02em;
+}
+.car-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(92, 157, 255, 0.14);
+  flex-shrink: 0;
+}
+
+@media (max-width: 860px) {
+  .car-layout { grid-template-columns: 1fr; gap: 2rem; }
+}
 
 /* ---------- CTA banner ---------- */
 .cta-banner {
@@ -676,7 +733,7 @@ section { padding: 4rem 0; }
   align-items: flex-start;
   margin-bottom: 0.8rem;
 }
-.check-list svg { width: 20px; height: 20px; color: var(--white); flex-shrink: 0; margin-top: 2px; }
+.check-list svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
 
 /* ---------- Pricing ---------- */
 .pricing-grid {
@@ -741,7 +798,7 @@ section { padding: 4rem 0; }
   margin-bottom: 0.7rem;
   font-size: 0.94rem;
 }
-.price-card li svg { width: 18px; height: 18px; color: var(--white); flex-shrink: 0; margin-top: 3px; }
+.price-card li svg { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; margin-top: 3px; }
 .price-card .btn { text-align: center; }
 
 /* ---------- Contact page ---------- */
@@ -804,7 +861,7 @@ section { padding: 4rem 0; }
 .form-row input:focus,
 .form-row select:focus,
 .form-row textarea:focus {
-  outline: 2px solid rgba(255,255,255,0.7);
+  outline: 2px solid var(--accent);
   outline-offset: 1px;
   background: #242424;
 }

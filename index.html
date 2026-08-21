@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="images/logo-icon.png" type="image/png">
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body>
 
@@ -165,15 +165,23 @@
 </section>
 
 <section class="car-section">
-  <div class="container">
-    <div class="section-head">
+  <div class="container car-layout">
+    <div class="car-copy">
       <span class="section-kicker"><span></span> Built to spec</span>
       <h2>Assembled Part by Part</h2>
       <p>No templates, no filler — every site we ship is built around how your business actually runs.</p>
+      <ul class="check-list" style="margin-top: 1.4rem;">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Designed around your customers, not a theme</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Built to load fast on any connection</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yours to keep, with support if you want it</li>
+      </ul>
     </div>
-    <div class="car-stage">
-      <canvas class="car-canvas" aria-hidden="true"></canvas>
-    </div>
+    <figure class="car-viewer">
+      <div class="car-stage">
+        <canvas class="car-canvas" aria-hidden="true"></canvas>
+      </div>
+      <figcaption class="car-label"><span class="car-dot"></span> Rendered live in 3D · 360° view</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -216,8 +224,8 @@
   </div>
 </footer>
 
-<script src="js/nav.js?v=11"></script>
-<script src="js/reveal.js?v=11"></script>
+<script src="js/nav.js?v=12"></script>
+<script src="js/reveal.js?v=12"></script>
 
 <!-- three.js is pinned to an exact version so a future release can't
      change the render out from under the site. -->
@@ -229,6 +237,6 @@
   }
 }
 </script>
-<script type="module" src="js/car.js?v=11"></script>
+<script type="module" src="js/car.js?v=12"></script>
 </body>
 </html>

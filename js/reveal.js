@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ".card",
     ".price-card",
     ".two-col > *",
-    ".contact-grid > *"
+    ".contact-grid > *",
+    ".car-copy",
+    ".car-viewer"
   ].join(", ");
 
   var els = Array.prototype.slice.call(document.querySelectorAll(SELECTOR));
