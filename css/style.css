@@ -334,16 +334,25 @@ img { max-width: 100%; display: block; }
    as part of the same surface instead of a bar sitting on top of it.
    Two slowly counter-rotating soft conic-gradient glows sit behind the
    copy; each is a full 360° spin, so it loops with no seam. */
+/* overflow-x: clip (not hidden) so the hero glow is only trimmed
+   sideways. Vertically it stays visible, letting the light continue past
+   the hero's bottom edge into the next section instead of being sliced
+   flat there — that hard slice was the visible seam between sections. */
 .hero-zone {
   position: relative;
   background: transparent;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 .hero-flow {
   position: absolute;
-  inset: -25%;
+  /* Extra bleed at the bottom so the glow has room to fall off gradually
+     below the hero rather than ending abruptly. */
+  inset: -25% -25% -60%;
   z-index: 0;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 5%, rgba(0,0,0,0.55) 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 5%, rgba(0,0,0,0.55) 55%, transparent 100%);
 }
 .hero-flow::before,
 .hero-flow::after {
@@ -447,9 +456,9 @@ section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  /* Transparent: the site-wide fixed grid shows through. Only a soft
-     top glow is layered on to give the section some presence. */
-  background: radial-gradient(circle at 50% 0%, rgba(92, 157, 255, 0.10), transparent 36rem);
+  /* No top glow of its own: the hero's light now carries across this
+     boundary, and a second glow starting here would re-introduce an edge. */
+  background: none;
 }
 .capabilities-section::after {
   content: "";
