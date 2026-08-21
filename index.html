@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="images/logo-icon.png" type="image/png">
-<link rel="stylesheet" href="css/style.css?v=7">
+<link rel="stylesheet" href="css/style.css?v=8">
 </head>
 <body>
 
@@ -165,6 +165,19 @@
   </div>
 </section>
 
+<section class="car-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-kicker"><span></span> Built to spec</span>
+      <h2>Assembled Part by Part</h2>
+      <p>No templates, no filler — every site we ship is built around how your business actually runs.</p>
+    </div>
+    <div class="car-stage">
+      <canvas class="car-canvas" aria-hidden="true"></canvas>
+    </div>
+  </div>
+</section>
+
 <section class="cta-banner">
   <div class="container">
     <h2>Ready to Build Something That Works as Hard as You Do?</h2>
@@ -204,7 +217,19 @@
   </div>
 </footer>
 
-<script src="js/nav.js?v=7"></script>
-<script src="js/reveal.js?v=7"></script>
+<script src="js/nav.js?v=8"></script>
+<script src="js/reveal.js?v=8"></script>
+
+<!-- three.js is pinned to an exact version so a future release can't
+     change the render out from under the site. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="js/car.js?v=8"></script>
 </body>
 </html>
