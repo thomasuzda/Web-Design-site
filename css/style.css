@@ -7,23 +7,27 @@
    below didn't all need renaming) but now resolve to black. */
 
 :root {
-  --charcoal: #141414;
-  --charcoal-light: #1f1f1f;
-  --steel: #6e6e6e;
-  --steel-light: #bdbdbd;
+  /* The "grays" are not neutral — every one is desaturated from the same
+     ~217° hue as --accent. That shared undertone is what makes the blue
+     read as part of the palette instead of a colour dropped on top of
+     neutral gray. Change --accent and these should shift with it. */
+  --charcoal: #12141a;
+  --charcoal-light: #1b1e26;
+  --steel: #6b7280;
+  --steel-light: #b8bfcc;
   --amber: #000000;
   --amber-dark: #000000;
-  /* Cool accent blue + softer/dimmer variants for glows and washes. */
+  /* Accent blue + softer/dimmer variants for glows and washes. */
   --accent: #5c9dff;
   --accent-soft: #a3c7ff;
   --accent-wash: rgba(92, 157, 255, 0.14);
   --accent-line: rgba(92, 157, 255, 0.45);
-  --glow: rgba(255, 255, 255, 0.16);
-  --cream: #f2f2f2;
-  --black: #0a0a0a;
+  --glow: rgba(92, 157, 255, 0.20);
+  --cream: #eef1f6;
+  --black: #08090c;
   /* Body text now sits on dark, so --ink/--ink-light are light values. */
-  --ink: #e6e6e6;
-  --ink-light: #9a9a9a;
+  --ink: #e3e7ee;
+  --ink-light: #949bab;
   --white: #ffffff;
   --radius: 14px;
   --shadow: 0 10px 34px rgba(0, 0, 0, 0.12);
@@ -78,16 +82,17 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255,255,255,0.07), transparent 70%),
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(92,157,255,0.15), transparent 72%),
     var(--black);
 }
 
 h1, h2, h3, h4 {
   font-family: "Oswald", "Segoe UI", system-ui, sans-serif;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
   color: var(--white);
-  line-height: 1.15;
+  line-height: 1.12;
   margin: 0 0 0.5em;
+  text-wrap: balance;
 }
 
 p { margin: 0 0 1em; }
@@ -139,7 +144,7 @@ img { max-width: 100%; display: block; }
   border-color: var(--white);
   color: var(--white);
 }
-.btn-outline:hover { background: rgba(255,255,255,0.12); }
+.btn-outline:hover { background: rgba(92,157,255,0.16); border-color: var(--accent-soft); }
 
 /* ---------- Header / Nav ---------- */
 /* Transparent by default so the flowing hero background reads as one
@@ -204,7 +209,7 @@ img { max-width: 100%; display: block; }
   margin-right: 0.4rem;
   transition: color 0.2s ease;
 }
-.nav-phone:hover { color: var(--white); }
+.nav-phone:hover { color: var(--accent-soft); }
 
 .nav-cta .btn {
   padding: 0.5rem 1.2rem;
@@ -235,8 +240,8 @@ img { max-width: 100%; display: block; }
 }
 .nav-toggle:hover,
 .nav-toggle[aria-expanded="true"] {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(92, 157, 255, 0.14);
+  border-color: var(--accent-line);
 }
 .nav-toggle-chevron {
   width: 12px;
@@ -301,7 +306,7 @@ img { max-width: 100%; display: block; }
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
   color: var(--white);
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(92, 157, 255, 0.12);
 }
 .nav-links a[aria-current="page"]::after { opacity: 1; }
 
@@ -345,13 +350,13 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   background: conic-gradient(from 0deg at 50% 45%,
-    rgba(255,255,255,0) 0deg,
-    rgba(255,255,255,0.22) 40deg,
-    rgba(255,255,255,0) 100deg,
-    rgba(255,255,255,0.14) 190deg,
-    rgba(255,255,255,0) 250deg,
-    rgba(255,255,255,0.26) 320deg,
-    rgba(255,255,255,0) 360deg);
+    rgba(92,157,255,0) 0deg,
+    rgba(92,157,255,0.30) 40deg,
+    rgba(92,157,255,0) 100deg,
+    rgba(126,178,255,0.20) 190deg,
+    rgba(92,157,255,0) 250deg,
+    rgba(92,157,255,0.34) 320deg,
+    rgba(92,157,255,0) 360deg);
   filter: blur(55px);
   animation: hero-spin 46s linear infinite;
 }
@@ -418,15 +423,15 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- Sections ---------- */
-section { padding: 4rem 0; }
-.section-head { max-width: 640px; margin: 0 auto 2.5rem; text-align: center; }
+section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+.section-head { max-width: 640px; margin: 0 auto 3rem; text-align: center; }
 .section-head h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); }
-.section-head p { color: var(--ink-light); font-family: "Inter", sans-serif; }
+.section-head p { color: var(--ink-light); font-family: "Inter", sans-serif; font-size: 1.02rem; line-height: 1.65; }
 
 /* Sections are transparent so the fixed site-wide grid reads through
    the entire page. .alt-bg is now just a faint lightening of that same
    surface, used to separate adjacent bands without breaking continuity. */
-.alt-bg { background: rgba(255,255,255,0.035); }
+.alt-bg { background: rgba(92,157,255,0.045); }
 .dark-bg {
   background: transparent;
   color: rgba(255,255,255,0.85);
@@ -443,7 +448,7 @@ section { padding: 4rem 0; }
   isolation: isolate;
   /* Transparent: the site-wide fixed grid shows through. Only a soft
      top glow is layered on to give the section some presence. */
-  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05), transparent 36rem);
+  background: radial-gradient(circle at 50% 0%, rgba(92, 157, 255, 0.10), transparent 36rem);
 }
 .capabilities-section::after {
   content: "";
@@ -462,7 +467,7 @@ section { padding: 4rem 0; }
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.8rem;
-  color: var(--accent-soft);
+  color: var(--steel-light);
   font: 600 0.72rem/1 "Oswald", sans-serif;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -471,8 +476,8 @@ section { padding: 4rem 0; }
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(92, 157, 255, 0.16), 0 0 18px rgba(92, 157, 255, 0.85);
+  background: var(--steel-light);
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.07), 0 0 14px rgba(255, 255, 255, 0.55);
   animation: capability-pulse 2.4s ease-in-out infinite;
 }
 .capabilities-section .section-head { margin-bottom: 3rem; }
@@ -510,11 +515,11 @@ section { padding: 4rem 0; }
   right: -5.6rem;
   bottom: -6.1rem;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 67%);
+  background: radial-gradient(circle, rgba(92, 157, 255, 0.24), transparent 67%);
   opacity: 0.5;
   transition: opacity 420ms ease, transform 600ms cubic-bezier(.16, 1, .3, 1);
 }
-.capability-card:hover { z-index: 1; transform: translateY(-9px); border-color: rgba(255, 255, 255, 0.55); background: linear-gradient(145deg, rgba(64, 64, 64, 0.96), rgba(30, 30, 30, 0.98)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13), 0 22px 42px rgba(0, 0, 0, 0.34), 0 0 32px rgba(255, 255, 255, 0.1); }
+.capability-card:hover { z-index: 1; transform: translateY(-9px); border-color: rgba(92, 157, 255, 0.65); background: linear-gradient(145deg, rgba(64, 64, 64, 0.96), rgba(30, 30, 30, 0.98)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13), 0 22px 42px rgba(0, 0, 0, 0.34), 0 0 34px rgba(92, 157, 255, 0.18); }
 .capability-card:hover::before { transform: translateX(55%); }
 .capability-card:hover::after { opacity: 1; transform: scale(1.35); }
 .capability-number { position: absolute; top: 1.35rem; right: 1.35rem; color: rgba(255, 255, 255, 0.35); font: 600 0.74rem/1 "Oswald", sans-serif; letter-spacing: 0.11em; }
@@ -525,7 +530,7 @@ section { padding: 4rem 0; }
 .capability-card p { color: rgba(255, 255, 255, 0.72); font: 400 0.93rem/1.58 "Inter", sans-serif; }
 .capability-card .card-link { margin-top: auto; padding-top: 1.2rem; color: var(--accent-soft); }
 .capability-card .card-link:hover { color: var(--white); }
-@keyframes capability-pulse { 50% { box-shadow: 0 0 0 8px rgba(92, 157, 255, 0.05), 0 0 25px rgba(92, 157, 255, 0.85); } }
+@keyframes capability-pulse { 50% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.03), 0 0 20px rgba(255, 255, 255, 0.6); } }
 
 /* ---------- Cards / Grids ---------- */
 .grid {
@@ -541,18 +546,18 @@ section { padding: 4rem 0; }
   border-radius: var(--radius);
   padding: 1.8rem;
   border: 1px solid rgba(255,255,255,0.11);
-  border-top: 3px solid var(--accent-line);
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  border-top: 2px solid var(--accent-line);
+  transition: transform 0.3s cubic-bezier(.16,1,.3,1), background 0.3s ease, border-color 0.3s ease;
 }
 .card:hover {
   transform: translateY(-5px);
-  background: rgba(255,255,255,0.075);
-  border-color: rgba(255,255,255,0.24);
+  background: rgba(92,157,255,0.07);
+  border-color: var(--accent-line);
 }
 .card .icon {
   width: 46px;
   height: 46px;
-  color: var(--white);
+  color: var(--accent-soft);
   margin-bottom: 1rem;
 }
 .card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; color: var(--white); }
@@ -608,72 +613,51 @@ section { padding: 4rem 0; }
 }
 
 /* ---------- 3D car (three.js, js/car.js) ----------
-   Copy on the left, the model in a bordered "viewer" panel on the right,
-   so the render reads as a deliberate exhibit rather than a canvas
-   floating loose in the page. Stacks on narrow screens. */
-.car-section { background: transparent; }
-.car-layout {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 3rem;
-  align-items: center;
-}
-.car-copy .section-kicker { margin-bottom: 0.9rem; }
-.car-copy h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); }
-.car-copy p { color: var(--ink-light); }
-
-.car-viewer {
-  margin: 0;
-  position: relative;
-  border: 1px solid rgba(255,255,255,0.11);
-  border-radius: 18px;
-  background:
-    radial-gradient(ellipse 70% 55% at 50% 62%, var(--accent-wash), transparent 70%),
-    rgba(255,255,255,0.035);
-  padding: 0.6rem 0.6rem 0;
-  overflow: hidden;
-}
+   The model anchors the closing CTA: copy sits in the upper part of the
+   section, the car occupies the lower band beneath it. They share the
+   section without stacking on top of each other, so the render stays
+   clearly legible instead of being a faint wash behind text. */
 .car-stage {
-  position: relative;
-  width: 100%;
-  height: clamp(260px, 30vw, 380px);
-}
-/* The canvas is sized in JS from this box, so it needs real dimensions
-   here rather than intrinsic canvas defaults. */
-.car-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68%;
+  z-index: 0;
+  pointer-events: none;
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.9s ease;
+  /* Feather the left/right edges and the top so the render dissolves into
+     the section rather than ending on a hard rectangle. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
-.car-stage.is-ready .car-canvas { opacity: 1; }
-/* If the model can't load, collapse the whole viewer — hiding only the
-   stage would leave a bordered box with nothing but the caption in it. */
-.car-viewer:has(.car-stage.is-failed) { display: none; }
+.car-stage.is-ready { opacity: 0.92; }
 .car-stage.is-failed { display: none; }
+/* Sized in JS from this box, so it needs real dimensions rather than the
+   intrinsic canvas defaults. */
+.car-canvas { display: block; width: 100%; height: 100%; }
 
-.car-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 0.5rem 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  color: var(--ink-light);
-  font: 500 0.78rem/1 "Inter", sans-serif;
-  letter-spacing: 0.02em;
+/* The CTA hosting the car needs real height for the model to read, with
+   the copy pinned to the top half. */
+.cta-banner.has-car {
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  padding-top: 5rem;
+  padding-bottom: 0;
 }
-.car-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(92, 157, 255, 0.14);
-  flex-shrink: 0;
-}
+.cta-banner.has-car > .container { position: relative; z-index: 1; }
 
 @media (max-width: 860px) {
-  .car-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .cta-banner.has-car { min-height: 540px; padding-top: 4rem; }
+  .car-stage { height: 60%; }
+}
+@media (max-width: 560px) {
+  .cta-banner.has-car { min-height: 470px; }
+  .car-stage { height: 54%; }
 }
 
 /* ---------- CTA banner ---------- */
@@ -753,7 +737,7 @@ section { padding: 4rem 0; }
   flex-direction: column;
 }
 .price-card.featured {
-  border: 2px solid rgba(255,255,255,0.65);
+  border: 2px solid var(--accent);
   background: rgba(255,255,255,0.08);
   position: relative;
   transform: translateY(-8px);
@@ -936,15 +920,19 @@ section { padding: 4rem 0; }
   font-family: "Inter", sans-serif;
 }
 .footer-grid p { font-family: "Inter", sans-serif; color: rgba(255,255,255,0.6); }
-.footer-grid a:hover { color: var(--steel-light); }
-.footer-brand { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
-.footer-brand svg, .footer-brand img { width: 28px; height: 28px; color: var(--white); object-fit: contain; }
-.footer-brand span {
+.footer-grid a:hover { color: var(--accent-soft); }
+/* Matches the header wordmark exactly — same type, same accent on
+   "craft" — so the brand reads consistently top and bottom. */
+.footer-brand { display: flex; align-items: center; margin-bottom: 0.9rem; }
+.footer-brand > span {
   font-family: "Oswald", sans-serif;
   font-size: 1.2rem;
+  font-weight: 600;
   color: var(--white);
   text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
+.footer-brand > span span { color: var(--accent); }
 .footer-bottom {
   text-align: center;
   font-size: 0.85rem;
@@ -961,3 +949,27 @@ section { padding: 4rem 0; }
   .capabilities-grid { grid-template-columns: 1fr; }
   .capability-card { min-height: 250px; }
 }
+
+/* ---------- Focus states ----------
+   Keyboard users get a clear, on-brand ring; mouse users never see it. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Links inside body copy read as links without shouting. */
+.card p a,
+.section-head p a,
+.form-note a {
+  color: var(--accent-soft);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.card p a:hover,
+.section-head p a:hover,
+.form-note a:hover { color: var(--white); }

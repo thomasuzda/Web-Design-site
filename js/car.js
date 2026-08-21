@@ -142,10 +142,10 @@ if (mount) {
     var vFov = THREE.MathUtils.degToRad(camera.fov);
     var hFov = 2 * Math.atan(Math.tan(vFov / 2) * camera.aspect);
     var dist = Math.max(
-      (radius * 1.06) / Math.sin(hFov / 2),
-      (halfHeight * 1.5) / Math.sin(vFov / 2)
+      (radius * 1.22) / Math.sin(hFov / 2),
+      (halfHeight * 1.9) / Math.sin(vFov / 2)
     );
-    var dir = new THREE.Vector3(1, 0.30, 1).normalize();
+    var dir = new THREE.Vector3(1, 0.26, 1).normalize();
     camera.position.copy(dir.multiplyScalar(dist));
     camera.position.y += focusY * 0.5;
     camera.lookAt(0, focusY, 0);
@@ -165,8 +165,9 @@ if (mount) {
         turntable.add(gltf.scene);
         dressMaterials(gltf.scene);
         frameModel(gltf.scene);
-        // Start on a front three-quarter view rather than the tail.
-        turntable.rotation.y = Math.PI + 0.5;
+        // Front three-quarter on arrival — the tail is the less
+        // flattering angle to greet someone with.
+        turntable.rotation.y = 0.55;
         draco.dispose();
         if (stage) stage.classList.add("is-ready");
         resize();
@@ -210,6 +211,20 @@ if (mount) {
 
   resize();
 
+  // Is the canvas within `margin` px of the viewport?
+  function isNear(margin) {
+    var r = mount.getBoundingClientRect();
+    if (!r.height) return false;
+    return r.top < window.innerHeight + margin && r.bottom > -margin;
+  }
+
+  function maybeLoad() {
+    if (!loaded && isNear(600)) load();
+  }
+  function maybePlay() {
+    if (loaded) { isNear(0) ? start() : stop(); }
+  }
+
   if ("IntersectionObserver" in window) {
     // Wide margin on the loader so the model is already downloading by the
     // time the section scrolls into view.
@@ -223,11 +238,31 @@ if (mount) {
     new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { e.isIntersecting ? start() : stop(); });
     }, { threshold: 0.05 }).observe(mount);
-  } else {
-    load();
   }
 
+  /* Scroll/resize fallback. IntersectionObserver is the primary trigger,
+     but it silently never fires in some contexts (a backgrounded or
+     non-painting document, for one) — and since it's the only thing that
+     starts the download, that would mean the car simply never appears.
+     These checks cost nothing and guarantee it still loads. load() and
+     start() are both idempotent, so double-triggering is harmless. */
+  var scrollTick = false;
+  function onScroll() {
+    if (scrollTick) return;
+    scrollTick = true;
+    requestAnimationFrame(function () {
+      scrollTick = false;
+      maybeLoad();
+      maybePlay();
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+
+  // And cover the case where it's already in view on first paint.
+  maybeLoad();
+
   document.addEventListener("visibilitychange", function () {
-    if (document.hidden) stop(); else start();
+    if (document.hidden) stop(); else { maybeLoad(); start(); }
   });
 }

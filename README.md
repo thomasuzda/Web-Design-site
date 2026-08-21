@@ -2,7 +2,7 @@
 
 A static, no-build-step marketing site for a web/software studio serving
 small and growing businesses of any kind. Plain HTML/CSS/JS — same
-approach as the `u-r-nursery` site in this repo.
+approach as the other static sites in this repo.
 
 ## Preview locally
 
@@ -38,12 +38,13 @@ throughout the HTML files as well):
       `$750/mo`) are placeholder numbers. Replace with your real rates.
 - [ ] **Photo placeholders** — the gradient blocks with a person icon (e.g.
       on `about.html`) are stand-ins for real photos.
-- [ ] **Portfolio** — `work.html` and `index.html` link out to the
-      `u-r-nursery` project as a real example. As you complete client work,
-      add more project cards using the same `.card` pattern.
-- [ ] **Colors** — the warm copper-on-charcoal theme lives entirely in CSS
-      custom properties at the top of `css/style.css` (`:root { ... }`).
-      Change those variables to re-theme the whole site at once.
+- [ ] **Portfolio** — `work.html` currently shows a "coming soon"
+      placeholder card. Replace it with real project cards using the same
+      `.card` pattern as you complete client work.
+- [ ] **Colors** — the dark theme with its cool-blue accent lives entirely
+      in CSS custom properties at the top of `css/style.css` (`:root {...}`).
+      Note the grays are desaturated from the same hue as `--accent`, so if
+      you change the accent, shift those with it to keep them in unison.
 
 ## Deploying, and making the contact form actually work
 
