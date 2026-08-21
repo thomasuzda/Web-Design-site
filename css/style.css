@@ -64,8 +64,7 @@ body {
 
 /* Fixed dark canvas + ambient glow sitting behind every section, so the
    whole page reads as one continuous surface rather than a stack of
-   separately-backgrounded bands. The moving wave-mesh (.site-mesh) is
-   layered on top of this. */
+   separately-backgrounded bands. */
 body::before {
   content: "";
   position: fixed;
@@ -74,23 +73,6 @@ body::before {
   background:
     radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255,255,255,0.07), transparent 70%),
     var(--black);
-}
-
-/* Animated perspective wave-mesh (drawn by js/mesh.js), fixed behind the
-   entire site — the only "grid" on the page now, and it's always moving. */
-/* No mask here on purpose: the canvas already fades its own lines out
-   with depth, and mask-image on a full-viewport fixed element is a
-   known cross-browser trip hazard (a mis-parsed mask hides the whole
-   layer rather than degrading gracefully). */
-.site-mesh {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
 }
 
 h1, h2, h3, h4 {
@@ -335,10 +317,8 @@ img { max-width: 100%; display: block; }
 
 /* Shared dark canvas behind both the nav and the hero, so the nav reads
    as part of the same surface instead of a bar sitting on top of it.
-   Two slowly counter-rotating soft conic-gradient glows plus a drifting
-   grid mesh — every animation here loops by construction (a full 360°
-   spin, or a background-position shift by exactly one tile) so there is
-   never a seam to hide, unlike a video loop. */
+   Two slowly counter-rotating soft conic-gradient glows sit behind the
+   copy; each is a full 360° spin, so it loops with no seam. */
 .hero-zone {
   position: relative;
   background: transparent;
@@ -375,8 +355,6 @@ img { max-width: 100%; display: block; }
 @keyframes hero-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes hero-spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
-/* Animated perspective wave-mesh (drawn by js/mesh.js). Sits above the
-   ambient glow but below the hero copy. */
 @media (prefers-reduced-motion: reduce) {
   .hero-flow::before, .hero-flow::after { animation: none; }
 }
@@ -398,9 +376,7 @@ img { max-width: 100%; display: block; }
 }
 .hero.small .container { padding-top: 3.2rem; padding-bottom: 3.2rem; }
 
-/* Soft dark halo on the hero copy so grid lines passing behind the text
-   don't visually collide with the letterforms — lets the mesh stay at
-   full strength across the whole viewport without hurting legibility. */
+/* Soft dark halo that lifts the hero copy off the glow behind it. */
 .hero h1 {
   color: var(--white);
   font-size: clamp(2.1rem, 5vw, 3.4rem);
@@ -795,8 +771,8 @@ section { padding: 4rem 0; }
   border-radius: 8px;
   font-family: "Inter", sans-serif;
   font-size: 1rem;
-  /* Opaque rather than translucent, so the moving mesh behind the page
-     doesn't drift through the field while you're typing in it. */
+  /* Opaque rather than translucent, so the page background doesn't show
+     through the field while you're typing in it. */
   background: #1c1c1c;
   color: var(--white);
   transition: border-color 0.2s ease, background 0.2s ease;
