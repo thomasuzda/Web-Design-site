@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="images/logo-icon.png" type="image/png">
-<link rel="stylesheet" href="css/style.css?v=16">
+<link rel="stylesheet" href="css/style.css?v=17">
 </head>
 <body>
 
@@ -92,6 +92,20 @@
   </div>
 </section>
 
+<section class="showcase-3d">
+  <!-- Live 3D capability demo. js/car.js drives the .car-canvas. -->
+  <div class="car-stage" aria-hidden="true">
+    <canvas class="car-canvas"></canvas>
+  </div>
+  <div class="container">
+    <div class="section-head">
+      <span class="section-kicker"><span></span> Interactive &amp; 3D</span>
+      <h2>Real-Time 3D, Right in the Browser</h2>
+      <p>Product viewers, configurators, and interactive showcases — rendered live as you scroll. No plugins, no video file, and it works on a phone. The model below is running right now.</p>
+    </div>
+  </div>
+</section>
+
 <section class="alt-bg">
   <div class="container">
     <div class="section-head">
@@ -146,12 +160,7 @@
   </div>
 </section>
 
-<section class="cta-banner has-car">
-  <!-- The 3D car sits behind this section as atmosphere, not as its own
-       feature block. js/car.js still drives it via .car-canvas. -->
-  <div class="car-stage" aria-hidden="true">
-    <canvas class="car-canvas"></canvas>
-  </div>
+<section class="cta-banner">
   <div class="container">
     <h2>Ready to Build Something That Works as Hard as You Do?</h2>
     <p>Tell us what you're working on — we'll follow up with a straightforward quote.</p>
@@ -189,8 +198,8 @@
   </div>
 </footer>
 
-<script src="js/nav.js?v=16"></script>
-<script src="js/reveal.js?v=16"></script>
+<script src="js/nav.js?v=17"></script>
+<script src="js/reveal.js?v=17"></script>
 
 <!-- three.js is pinned to an exact version so a future release can't
      change the render out from under the site. -->
@@ -202,6 +211,6 @@
   }
 }
 </script>
-<script type="module" src="js/car.js?v=16"></script>
+<script type="module" src="js/car.js?v=17"></script>
 </body>
 </html>

@@ -82,7 +82,8 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(92,157,255,0.15), transparent 72%),
+    radial-gradient(ellipse 95% 65% at 50% 0%, rgba(184,191,204,0.13), transparent 72%),
+    radial-gradient(ellipse 62% 48% at 58% 2%, rgba(92,157,255,0.11), transparent 70%),
     var(--black);
 }
 
@@ -350,12 +351,12 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   background: conic-gradient(from 0deg at 50% 45%,
-    rgba(92,157,255,0) 0deg,
-    rgba(92,157,255,0.30) 40deg,
-    rgba(92,157,255,0) 100deg,
-    rgba(126,178,255,0.20) 190deg,
-    rgba(92,157,255,0) 250deg,
-    rgba(92,157,255,0.34) 320deg,
+    rgba(198,205,218,0) 0deg,
+    rgba(198,205,218,0.26) 40deg,
+    rgba(198,205,218,0) 100deg,
+    rgba(92,157,255,0.22) 190deg,
+    rgba(198,205,218,0) 250deg,
+    rgba(198,205,218,0.30) 320deg,
     rgba(92,157,255,0) 360deg);
   filter: blur(55px);
   animation: hero-spin 46s linear infinite;
@@ -613,51 +614,48 @@ section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
 }
 
 /* ---------- 3D car (three.js, js/car.js) ----------
-   The model anchors the closing CTA: copy sits in the upper part of the
-   section, the car occupies the lower band beneath it. They share the
-   section without stacking on top of each other, so the render stays
-   clearly legible instead of being a faint wash behind text. */
+   A capability demo, not decoration: the copy introduces it, the model
+   sits in the band below, opaque and framed to fit. */
+.showcase-3d {
+  position: relative;
+  overflow: hidden;
+  min-height: 640px;
+  padding-bottom: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(92,157,255,0.10), transparent 70%);
+}
+.showcase-3d > .container { position: relative; z-index: 1; }
+.showcase-3d .section-head { margin-bottom: 0; }
+
 .car-stage {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 68%;
+  height: 64%;
   z-index: 0;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.9s ease;
-  /* Feather the left/right edges and the top so the render dissolves into
-     the section rather than ending on a hard rectangle. */
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  /* Feather the top and sides so the render dissolves into the section
+     instead of ending on a hard rectangle. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 20%), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 20%), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
-.car-stage.is-ready { opacity: 0.92; }
+.car-stage.is-ready { opacity: 1; }
 .car-stage.is-failed { display: none; }
 /* Sized in JS from this box, so it needs real dimensions rather than the
    intrinsic canvas defaults. */
 .car-canvas { display: block; width: 100%; height: 100%; }
 
-/* The CTA hosting the car needs real height for the model to read, with
-   the copy pinned to the top half. */
-.cta-banner.has-car {
-  position: relative;
-  overflow: hidden;
-  min-height: 620px;
-  padding-top: 5rem;
-  padding-bottom: 0;
-}
-.cta-banner.has-car > .container { position: relative; z-index: 1; }
-
 @media (max-width: 860px) {
-  .cta-banner.has-car { min-height: 540px; padding-top: 4rem; }
-  .car-stage { height: 60%; }
+  .showcase-3d { min-height: 560px; }
+  .car-stage { height: 58%; }
 }
 @media (max-width: 560px) {
-  .cta-banner.has-car { min-height: 470px; }
-  .car-stage { height: 54%; }
+  .showcase-3d { min-height: 500px; }
+  .car-stage { height: 52%; }
 }
 
 /* ---------- CTA banner ---------- */

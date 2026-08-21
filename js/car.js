@@ -68,10 +68,10 @@ if (mount) {
 
   /* The FBX->glTF conversion kept the material *names* but not their
      colours, so everything arrives pure white. Re-dress them by name, in
-     the site's monochrome palette: silver bodywork, near-black rubber and
-     trim, smoked glass, chrome brightwork. */
+     a light "baby blue" body with near-black rubber and trim, smoked
+     glass, and chrome brightwork. */
   var LOOKS = {
-    carpaint:    { color: 0xd8dade, metalness: 0.85, roughness: 0.28 },
+    carpaint:    { color: 0x9cc7e6, metalness: 0.80, roughness: 0.30 },
     white_gloss: { color: 0xe8e8e8, metalness: 0.35, roughness: 0.25 },
     glossblack:  { color: 0x0e0e10, metalness: 0.55, roughness: 0.20 },
     tire:        { color: 0x0b0b0c, metalness: 0.00, roughness: 0.95 },
