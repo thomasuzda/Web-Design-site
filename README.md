@@ -1,8 +1,8 @@
 # Webcraft
 
-A static, no-build-step marketing site for a web/software agency serving
-automotive businesses first, and construction businesses second. Plain
-HTML/CSS/JS — same approach as the `u-r-nursery` site in this repo.
+A static, no-build-step marketing site for a web/software studio serving
+small and growing businesses of any kind. Plain HTML/CSS/JS — same
+approach as the `u-r-nursery` site in this repo.
 
 ## Preview locally
 

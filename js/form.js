@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var successBox = document.querySelector("#form-success");
 
+  // "industry" is a free-text, optional field — don't gate submission on it.
   var requiredFields = [
     { name: "name", label: "Name" },
     { name: "email", label: "Email" },
-    { name: "industry", label: "Industry" },
     { name: "message", label: "Project details" }
   ];
 
