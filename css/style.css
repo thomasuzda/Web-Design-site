@@ -422,6 +422,19 @@ img { max-width: 100%; display: block; }
   margin-top: 1.5rem;
   flex-wrap: wrap;
 }
+
+/* On wide screens the homepage hero copy is capped well below the
+   container width (h1 760px, lead 580px), so left-aligning it left a big
+   empty gap on the right and read as off-centre. Centre it from the
+   desktop breakpoint up. Deliberately scoped:
+   - :not(.small) so the shorter sub-page heroes keep their left alignment
+   - min-width so phone/tablet-portrait layout is untouched */
+@media (min-width: 861px) {
+  .hero:not(.small) .container { text-align: center; }
+  .hero:not(.small) h1,
+  .hero:not(.small) p.lead { margin-left: auto; margin-right: auto; }
+  .hero:not(.small) .btn-row { justify-content: center; }
+}
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 2px;
